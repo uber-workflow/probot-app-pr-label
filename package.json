@@ -6,7 +6,7 @@
   "contributors": [],
   "repository": "https://github.com/uber-web/probot-app-pr-label.git",
   "scripts": {
-    "start": "probot run ./index.js",
+    "start": "probot run ./src/index.js",
     "test": "npm run lint && jest",
     "jest": "jest",
     "lint": "eslint .",
