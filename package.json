@@ -1,7 +1,7 @@
 {
   "name": "probot-app-pr-label",
   "version": "1.0.0",
-  "description": "GitHub App that labels release PRs",
+  "description": "GitHub App that enforces all PRs have at least one semver-related label",
   "author": "Alexander Smith <alexmsmithca@gmail.com>",
   "contributors": [],
   "repository": "https://github.com/uber-web/probot-app-pr-label.git",
