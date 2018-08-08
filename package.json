@@ -1,0 +1,31 @@
+{
+  "name": "probot-app-pr-label",
+  "version": "1.0.0",
+  "description": "GitHub App that labels release PRs",
+  "author": "Alexander Smith <alexmsmithca@gmail.com>",
+  "contributors": [],
+  "repository": "https://github.com/uber-web/probot-app-pr-label.git",
+  "scripts": {
+    "start": "probot run ./index.js",
+    "test": "npm run lint && jest",
+    "jest": "jest",
+    "lint": "eslint .",
+    "fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "probot": "6.2.0",
+    "semver": "5.5.0",
+    "smee-client": "^1.0.2"
+  },
+  "devDependencies": {
+    "eslint": "5.1.0",
+    "eslint-plugin-prettier": "2.6.2",
+    "jest": "22.4.3",
+    "localtunnel": "1.9.0",
+    "prettier": "1.13.7"
+  },
+  "engines": {
+    "node": ">= 8.6.0"
+  },
+  "license": "MIT"
+}

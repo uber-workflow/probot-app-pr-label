@@ -1,0 +1,7 @@
+version: '2'
+services:
+  probot-app-pr-label:
+    build: .
+    volumes:
+      - .:/probot-app-pr-label
+      - /probot-app-pr-label/node_modules/
