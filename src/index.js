@@ -8,7 +8,7 @@ const requiredLabels = [
   'breaking',
   'feature',
   'bugfix',
-  'documentation',
+  'docs',
   'discussion',
   'release',
   'prerelease',
