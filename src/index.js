@@ -13,9 +13,10 @@ module.exports = robot => {
   robot.on('pull_request.labeled', check);
 
   async function check(context) {
+    const {github} = context;
     const pr = context.payload.pull_request;
 
-    const requiredLabels = await context.config('required-labels.yml', {
+    const requiredLabels = (await context.config('required-labels.yml', {
       labels: [
         'breaking',
         'feature',
@@ -26,7 +27,7 @@ module.exports = robot => {
         'prerelease',
         'greenkeeping',
       ],
-    }).labels;
+    })).labels;
 
     // set status to pending while checks happen
     setStatus(context, {
@@ -52,6 +53,14 @@ module.exports = robot => {
       });
     } else {
       // failure - missing label
+      github.issues.createComment(
+        context.issue({
+          body: `Please add one of the following required labels:\n- ${requiredLabels.join(
+            '\n- ',
+          )}`,
+        }),
+      );
+
       return setStatus(context, {
         state: 'failure',
         description: `Missing a mandatory semver-related label (e.g. 'breaking' or 'feature')`,
