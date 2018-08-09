@@ -4,17 +4,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const requiredLabels = [
-  'breaking',
-  'feature',
-  'bugfix',
-  'docs',
-  'discussion',
-  'release',
-  'prerelease',
-  'greenkeeping',
-];
-
 module.exports = robot => {
   robot.on('pull_request.opened', check);
   robot.on('pull_request.reopened', check);
@@ -25,6 +14,19 @@ module.exports = robot => {
 
   async function check(context) {
     const pr = context.payload.pull_request;
+
+    const requiredLabels = await context.config('required-labels.yml', {
+      labels: [
+        'breaking',
+        'feature',
+        'bugfix',
+        'docs',
+        'discussion',
+        'release',
+        'prerelease',
+        'greenkeeping',
+      ],
+    }).labels;
 
     // set status to pending while checks happen
     setStatus(context, {
