@@ -9,3 +9,5 @@ This app requires these **Permissions & events** for the GitHub App:
 - Repository webhooks - **Read-only**
 - Commit statuses - **Read & Write**
   - [x] Check the box for **Status** events
+- Single File - **Read-only**
+  - Path: `required-labels.yml`
