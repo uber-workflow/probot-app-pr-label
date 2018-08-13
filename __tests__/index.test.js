@@ -24,6 +24,9 @@ describe('probot-app-pr-label', () => {
         createComment: jest.fn(),
       },
       repos: {
+        getContent: jest
+          .fn()
+          .mockReturnValue(Promise.resolve({data: {content: ''}})),
         createStatus: jest.fn().mockReturnValue(Promise.resolve(true)),
       },
     };
