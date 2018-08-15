@@ -44,23 +44,60 @@ module.exports = robot => {
       return filteredLabels;
     }
 
+    function generateMissingLabelComment() {
+      return `Please add one of the following required labels:\n- ${requiredLabels.join(
+        '\n- ',
+      )}`;
+    }
+
+    async function getMissingLabelComments() {
+      const userId = process.env.GH_USER_ID || 42192675;
+      if (userId) {
+        const comments = await github.issues.getComments(context.issue());
+        return comments.data
+          .filter(
+            c =>
+              c.user.id === userId && c.body === generateMissingLabelComment(),
+          )
+          .map(c => c.id);
+      }
+      return [];
+    }
+
+    async function clearComments() {
+      const commentsToDelete = await getMissingLabelComments();
+
+      if (commentsToDelete) {
+        return commentsToDelete.map(id => {
+          return github.issues.deleteComment(
+            context.issue({
+              comment_id: id,
+            }),
+          );
+        });
+      }
+    }
+
     const hasRequiredLabel = getRequiredLabels(pr).length > 0;
     if (hasRequiredLabel) {
+      // delete existing comments, if applicable
+      clearComments();
+
       // set status to success
       return setStatus(context, {
         state: 'success',
         description: 'At least one required semver-related label exists',
       });
     } else {
-      // failure - missing label
-      github.issues.createComment(
-        context.issue({
-          body: `Please add one of the following required labels:\n- ${requiredLabels.join(
-            '\n- ',
-          )}`,
-        }),
-      );
+      if (!(await getMissingLabelComments()).length) {
+        github.issues.createComment(
+          context.issue({
+            body: generateMissingLabelComment(),
+          }),
+        );
+      }
 
+      // failure - missing label
       return setStatus(context, {
         state: 'failure',
         description: `Missing a mandatory semver-related label (e.g. 'breaking' or 'feature')`,
