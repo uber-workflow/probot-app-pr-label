@@ -51,7 +51,7 @@ module.exports = robot => {
     }
 
     async function getMissingLabelComments() {
-      const userId = process.env.GH_USER_ID || 42192675;
+      const userId = process.env.GH_USER_ID;
       if (userId) {
         const comments = await github.issues.getComments(context.issue());
         return comments.data
