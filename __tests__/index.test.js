@@ -22,6 +22,11 @@ describe('probot-app-pr-label', () => {
     github = {
       issues: {
         createComment: jest.fn(),
+        getComments: jest
+          .fn()
+          .mockReturnValue(
+            Promise.resolve({data: [{body: 'test comment', user: {id: 1}}]}),
+          ),
       },
       repos: {
         getContent: jest
@@ -39,12 +44,16 @@ describe('probot-app-pr-label', () => {
       event: 'pull_request',
       payload: prOpenedNoLabelsPayload,
     });
-    // Should immediately set success
+    // Should immediately set failure
     const statusCalls = github.repos.createStatus.mock.calls;
     expect(github.repos.createStatus).toHaveBeenCalled();
     expect(statusCalls.length).toBe(2);
     expect(statusCalls[0][0].state).toBe('pending');
     expect(statusCalls[1][0].state).toBe('failure');
+
+    // Should also post a comment
+    const createCommentCalls = github.issues.createComment.mock.calls;
+    expect(createCommentCalls.length).toBe(1);
   });
 
   it('set status to success if at least one required label in payload', async () => {
