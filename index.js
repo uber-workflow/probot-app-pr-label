@@ -13,7 +13,6 @@ module.exports = robot => {
   robot.on('pull_request.labeled', check);
 
   async function check(context) {
-    const {github} = context;
     const pr = context.payload.pull_request;
 
     const requiredLabels = (await context.config('required-labels.yml', {
