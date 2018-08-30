@@ -22,6 +22,7 @@ module.exports = robot => {
         'bugfix',
         'docs',
         'discussion',
+        'refactor',
         'release',
         'prerelease',
         'greenkeeping',
