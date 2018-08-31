@@ -53,8 +53,8 @@
       {
         "id": 1018834670,
         "node_id": "MDU6TGFiZWwxMDE4ODM0Njcw",
-        "url": "https://api.github.com/repos/AlexMSmithCA/probot-app-pr-label/labels/discussion",
-        "name": "discussion",
+        "url": "https://api.github.com/repos/AlexMSmithCA/probot-app-pr-label/labels/feature",
+        "name": "feature",
         "color": "e8ab8b",
         "default": false
       },
@@ -352,8 +352,8 @@
   "label": {
     "id": 1018834670,
     "node_id": "MDU6TGFiZWwxMDE4ODM0Njcw",
-    "url": "https://api.github.com/repos/AlexMSmithCA/probot-app-pr-label/labels/discussion",
-    "name": "discussion",
+    "url": "https://api.github.com/repos/AlexMSmithCA/probot-app-pr-label/labels/feature",
+    "name": "feature",
     "color": "e8ab8b",
     "default": false
   },
